@@ -10,21 +10,22 @@ X= np.array([[73,67,43],
 
 Y= np.array([56,81,119,22,103],dtype='float32')
 
+#Now we have to impute 1's in X for bias
+ones=np.ones(shape=(X.shape[0],1))
 
-#but for the bias term we will 1 in the features of X
+#Now impute the ones in X
+X= np.append(ones,X, axis=1)
 
-ones=np.ones(shape=(len(X),1))  # so the shape is (5,1)
-
-X=np.append(ones,X,axis=1)  # added in column
-
-#Now lets take the co-efficients
-beta=np.linalg.inv(X.T.dot(X)).dot(X.T).dot(Y)
-
+#Now we will calculate the coefficients
+beta= np.linalg.inv(X.T.dot(X)).dot((X.T.dot(Y)))
 
 predictions = X.dot(beta)
 
-residuals = np.sum(np.square(predictions-Y))
-total= np.sum(np.square(Y-np.mean(Y)))
-r2_score= 1 - (residuals/total)
+#Now we will calculate the R2-Score
+SSres= np.sum(np.square(Y-predictions))
 
-print(r2_score)
+SStot= np.sum(np.square(Y-np.mean(Y)))
+
+r2score= 1 - (SSres/SStot)
+
+print(r2score)
