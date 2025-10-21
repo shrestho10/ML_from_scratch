@@ -47,22 +47,23 @@ def predict(X, theta, threshold=0.5):
     return predict_proba(X,theta)>=threshold
 
 np.random.seed(0)
-num_observations = 1000
-x1 = np.random.multivariate_normal([0, 0], [[1, .75],[.75, 1]], num_observations)
-x2 = np.random.multivariate_normal([1, 4], [[1, .75],[.75, 1]], num_observations)
-X = np.vstack((x1, x2)).astype(np.float32)
-y = np.hstack((np.zeros(num_observations), np.ones(num_observations)))
+num_observations=100
 
-# Split into train and test
-train_ratio = 0.7
-idx = int(X.shape[0] * train_ratio)
-X_train, X_test = X[:idx, :], X[idx:, :]
-y_train, y_test = y[:idx], y[idx:]
+x1=np.random.multivariate_normal([0,0],[[1,.75],[.75,1]],num_observations)
+x2=np.random.multivariate_normal([1,4],[[1,.75],[.75,1]],num_observations)
 
-# Training
-theta = logistic_regression(X_train, y_train, iterations = 30000, learning_rate = 0.1)
+X=np.vstack((x1,x2)).astype(np.float32)
+y=np.hstack((np.zeros(num_observations),np.ones(num_observations)))
 
-# Prediction and Accuracy calculation
-y_pred = predict(X_test, theta)
-accuracy = (y_pred == y_test).mean()
-print('Accuracy:', accuracy)
+
+train_Ratio=0.7
+idx=int(X.shape[0]*train_Ratio)
+
+X_train, X_test = X[:idx,:], X[idx:,:]
+y_train, y_test= y[:idx],y[idx:]
+
+theta=logistic_regression(X,y,iterations=30000,learning_rate=0.1)
+
+y_pred=predict(X_test,theta)
+accuracy= (y_pred==y_test).mean()
+print(f"Accuracy {accuracy}")
