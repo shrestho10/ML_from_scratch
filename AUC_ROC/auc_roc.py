@@ -25,7 +25,7 @@ def compute_aucroc(true,predicted):
         fpr.append(FP/(FP+TN))
 
 
-    auc_roc= sum(0.5*((fpr[i]-fpr[i-1])*(tpr[i]+tpr[i-1])) for i in range(1,len(tpr)))
+    auc_roc= sum(0.5*abs((fpr[i]-fpr[i-1])*(tpr[i]+tpr[i-1])) for i in range(1,len(tpr)))
     
 
     return auc_roc,tpr,fpr
