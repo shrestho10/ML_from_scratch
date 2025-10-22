@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 thresholds=[round(i*0.1,1) for i in range(0,11,2)][::-1]
 truth_labels = [1, 0, 1, 0, 1]
@@ -25,12 +26,18 @@ def compute_aucroc(true,predicted):
 
 
     auc_roc= sum(0.5*((fpr[i]-fpr[i-1])*(tpr[i]+tpr[i-1])) for i in range(1,len(tpr)))
+    
 
-    return auc_roc
+    return auc_roc,tpr,fpr
 
 
-aucroc_value = compute_aucroc(truth_labels, predicted_probs)
+aucroc_value,tpr,fpr = compute_aucroc(truth_labels, predicted_probs)
 print(f"The AUC-ROC value is: {aucroc_value:.2f}")
+
+
+plt.plot(fpr,tpr,marker="o")
+plt.show()
+
 
 
 
