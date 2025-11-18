@@ -1,3 +1,3 @@
 
 
-![Alt text](certificate/certificate1.png) 
+![Alt text](certificates/certificate1.png) 
